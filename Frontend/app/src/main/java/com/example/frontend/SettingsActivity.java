@@ -12,30 +12,30 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class LoginPage extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.activity_settings);
 
-        ImageButton backToMain = findViewById(R.id.returnMainLI);
-        Button logInLI = findViewById(R.id.LIButton);
+        ImageButton returnToChatsS = findViewById(R.id.returnToChatsS);
+        Button logOut = findViewById(R.id.logOutButton);
 
-        backToMain.setOnClickListener(new View.OnClickListener() {
+        returnToChatsS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backToMain = new Intent(LoginPage.this, MainActivity.class);
-                startActivity(backToMain);
+                Intent chatsIntent = new Intent(SettingsActivity.this, ChatList.class);
+                startActivity(chatsIntent);
             }
         });
 
-        logInLI.setOnClickListener(new View.OnClickListener() {
+        logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent logIn = new Intent(LoginPage.this, ChatList.class);
-                startActivity(logIn);
+                Intent logOutIntent = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(logOutIntent);
             }
         });
 

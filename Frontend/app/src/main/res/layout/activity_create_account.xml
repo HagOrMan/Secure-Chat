@@ -9,9 +9,9 @@
 
     <EditText
         android:id="@+id/passwordFieldCA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="380dp"
+        android:layout_width="211dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="364dp"
         android:ems="10"
         android:hint="Re-enter Password"
         android:inputType="textPassword"
@@ -42,21 +42,24 @@
 
     <EditText
         android:id="@+id/usernameFieldCA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_width="209dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="128dp"
+        android:height="48dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textEmailAddress"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/passwordREFieldCA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="211dp"
+        android:layout_height="52dp"
+        android:height="48dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"

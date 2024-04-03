@@ -30,8 +30,8 @@
 
     <EditText
         android:id="@+id/usernameFieldLI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="215dp"
+        android:layout_height="56dp"
         android:layout_marginTop="140dp"
         android:ems="10"
         android:hint="Username"
@@ -43,8 +43,8 @@
 
     <EditText
         android:id="@+id/passwordFieldLI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="212dp"
+        android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Password"
