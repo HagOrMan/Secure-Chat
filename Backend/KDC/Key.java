@@ -2,7 +2,7 @@ package Backend.KDC;
 
 import java.time.ZonedDateTime;
 
-class Key {
+public class Key {
 
     private String user, key;
     private ZonedDateTime createDate;
