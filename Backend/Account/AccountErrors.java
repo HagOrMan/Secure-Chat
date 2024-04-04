@@ -1,4 +1,4 @@
-package Backend.AccountController;
+package Backend.Account;
 
 public interface AccountErrors {
     void display();

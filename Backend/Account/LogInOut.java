@@ -1,4 +1,4 @@
-package Backend.AccountController;
+package Backend.Account;
 
 abstract class LogInOut {
     AccountAuthenticator auth;

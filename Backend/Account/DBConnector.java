@@ -1,9 +1,10 @@
-package Backend.AccountController;
+package Backend.Account;
 import java.util.List;
 import java.util.ArrayList;
 
 // DBConnector.java
 public class DBConnector {
+    //not in account controller
     String driver;
     String server;
     String userID;

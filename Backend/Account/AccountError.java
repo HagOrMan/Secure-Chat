@@ -1,4 +1,4 @@
-package Backend.AccountController;
+package Backend.Account;
 
 public class AccountError implements AccountErrors{
     public void display(){
