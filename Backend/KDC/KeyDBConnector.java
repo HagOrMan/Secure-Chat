@@ -14,6 +14,7 @@ public class KeyDBConnector {
      * @return true if key exists and was removed, false if key does not exist in storage
      */
     public boolean removeKey(Key key){
+        String.format(storage, "null");
         return true;
     }
     
