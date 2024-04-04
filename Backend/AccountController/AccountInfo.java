@@ -1,4 +1,4 @@
-package AccountController;
+package Backend.AccountController;
 
 public class AccountInfo implements AccountPersonalViews{
     private User user;

@@ -1,4 +1,4 @@
-package AccountController;
+package Backend.AccountController;
 
 public class AccountLogInOut extends LogInOut {
     @Override

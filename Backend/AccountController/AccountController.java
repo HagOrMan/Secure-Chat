@@ -1,6 +1,6 @@
-package AccountController;
+package Backend.AccountController;
 
-// AccountController.java
+// Backend.AccountController.java
 public class AccountController {
     public void login() {
         // Logic to handle login

@@ -1,4 +1,4 @@
-package AccountController;
+package Backend.AccountController;
 
 public interface AccountPersonalViews {
     void view();

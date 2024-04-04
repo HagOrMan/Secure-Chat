@@ -1,4 +1,4 @@
-package AccountController;
+package Backend.AccountController;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -11,7 +11,8 @@ public class DBConnector {
     int port;
 
     public void connect() {
-        // Implementation code
+        // connect to the database
+        
     }
 
     public void disconnect() {
