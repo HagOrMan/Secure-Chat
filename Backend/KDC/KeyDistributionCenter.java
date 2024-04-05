@@ -4,14 +4,24 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+// Imports for cryptography (link used for help: https://www.javatpoint.com/java-code-for-des) 
+import java.security.NoSuchAlgorithmException;
+import javax.crypto.KeyGenerator;    
+import javax.crypto.SecretKey;  
+
 public class KeyDistributionCenter {
 
     // Scheduler which will regularly update the keys using java threads.
     private ScheduledExecutorService scheduler;
     private KeyDBConnector dbConnector;
+    private Encrypter encrypter;
+    private String algorithm;
+    private int algorithmBits = 128;
 
     public KeyDistributionCenter(){
         dbConnector = new KeyDBConnector();
+        encrypter = new EncrypterAES();
+        algorithm = "AES";
 
         // Initializes object with a scheduler and immediately sets it to refresh keys every hour.
         scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -41,8 +51,22 @@ public class KeyDistributionCenter {
     }
 
     public Key createKey(String user){
-        Encrypter.encryptKey(null, null);
+        try {
+
+            encrypter.encrypt(null, generateKey());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        
         return null;
+    }
+
+    private SecretKey generateKey() throws NoSuchAlgorithmException {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
+        keyGenerator.init(algorithmBits);
+        SecretKey key = keyGenerator.generateKey();
+        return key;
     }
 
     /**
