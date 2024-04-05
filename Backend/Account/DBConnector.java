@@ -17,11 +17,11 @@ public class DBConnector {
     }
 
     public void disconnect() {
-        // Implementation code
+        // disconnect from the database
     }
 
     public List<String> query(String queryString) {
-        // Implementation code
+        // query
         return new ArrayList<>();
     }
 
