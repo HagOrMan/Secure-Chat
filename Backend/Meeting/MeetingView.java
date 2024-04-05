@@ -1,4 +1,4 @@
-package Meeting;
+package Backend.Meeting;
 
 public class MeetingView implements MeetingDisplay {
     @Override

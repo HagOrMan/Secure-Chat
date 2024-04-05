@@ -1,4 +1,4 @@
-package Meeting;
+package Backend.Meeting;
 
 import java.time.LocalDateTime;
 
