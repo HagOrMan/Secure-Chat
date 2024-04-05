@@ -1,4 +1,4 @@
-package Message;
+package Backend.Message;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Message;
+package Backend.Message;
 
 public class MessageFailure implements MessageDisplay {
     @Override

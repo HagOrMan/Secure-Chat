@@ -1,4 +1,4 @@
-package Message;
+package Backend.Message;
 
 public class MessageView implements MessageDisplay {
     @Override
