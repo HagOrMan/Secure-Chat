@@ -6,9 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 // Imports for cryptography (link used for help: https://www.javatpoint.com/java-code-for-des) 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+
 import javax.crypto.KeyGenerator;    
 import javax.crypto.SecretKey; 
-import java.util.Base64; 
 
 public class KeyDistributionCenter {
 
@@ -63,26 +64,36 @@ public class KeyDistributionCenter {
     public EncryptedMessage createEncryptedKey(String user, String userForEncryption){
 
         try {
-
-            encrypter.encrypt("null", generateKey());
+            // Get key from db, create new key, save to db, and encrypt the new key to send back.
+            SecretKey encryptionKey = dbConnector.getKeyByUser(userForEncryption).getKey();
+            SecretKey newKey = generateKey();
+            dbConnector.addKey(new Key(user, newKey, LocalDateTime.now()));
+            return encrypter.encrypt(newKey, encryptionKey); 
         }
         catch (Exception e){
             e.printStackTrace();
+            throw new RuntimeException("Error occured when encrypting message.", e);
         }
-        
-        return null;
     }
 
     // This function creates a personal key for a user, stores it in the KDC, and sends it back for the user to keep.
     public SecretKey createPersonalKey(String user){
-        return null;
+        SecretKey secretKey = generateKey();
+        dbConnector.addKey(new Key(user, secretKey, LocalDateTime.now()));
+        return secretKey;
     }
 
-    private SecretKey generateKey() throws NoSuchAlgorithmException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
-        keyGenerator.init(algorithmBits);
-        SecretKey key = keyGenerator.generateKey();
-        return key;
+    private SecretKey generateKey() {
+        KeyGenerator keyGenerator;
+        try {
+            keyGenerator = KeyGenerator.getInstance(algorithm);
+            keyGenerator.init(algorithmBits);
+            SecretKey key = keyGenerator.generateKey();
+            return key;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error occured when generating secret Key.", e);
+        }
     }
 
     /**
