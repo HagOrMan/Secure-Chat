@@ -22,7 +22,7 @@ public class KeyDistributionCenter {
     private int algorithmBits;
 
     public KeyDistributionCenter(){
-        dbConnector = new KeyDBConnector();
+        dbConnector = new KeyDBConnector(algorithm);
         encrypter = new EncrypterAES();
         algorithm = "AES";
         algorithmBits = 128;
@@ -73,7 +73,7 @@ public class KeyDistributionCenter {
         return null;
     }
 
-    // This function 
+    // This function creates a personal key for a user, stores it in the KDC, and sends it back for the user to keep.
     public SecretKey createPersonalKey(String user){
         return null;
     }
