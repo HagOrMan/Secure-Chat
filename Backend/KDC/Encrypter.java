@@ -11,12 +11,16 @@ import javax.crypto.SecretKey;
 
 // Encrypter abstract class that includes a generate IV
 public interface Encrypter {
-    public EncryptedMessage encrypt(String input, SecretKey key) 
+    public EncryptedMessage encrypt(String input, SecretKey encryptionKey) 
     throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
 
-    public String decrypt(EncryptedMessage encryptedMessage, SecretKey key)
+    public EncryptedMessage encrypt(SecretKey keyToEncrypt, SecretKey encryptionKey) 
     throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
 
-    public byte[] generateIV();
+    public String decryptString(EncryptedMessage encryptedMessage, SecretKey decryptionKey)
+    throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
+
+    public SecretKey decryptKey(EncryptedMessage encryptedMessage, SecretKey decryptionKey)
+    throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
 
 }

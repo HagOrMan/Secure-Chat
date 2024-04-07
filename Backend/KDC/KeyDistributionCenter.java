@@ -7,21 +7,25 @@ import java.util.concurrent.TimeUnit;
 // Imports for cryptography (link used for help: https://www.javatpoint.com/java-code-for-des) 
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.KeyGenerator;    
-import javax.crypto.SecretKey;  
+import javax.crypto.SecretKey; 
+import java.util.Base64; 
 
 public class KeyDistributionCenter {
 
     // Scheduler which will regularly update the keys using java threads.
     private ScheduledExecutorService scheduler;
     private KeyDBConnector dbConnector;
+
+    // Info for encrypting/decrypting
     private Encrypter encrypter;
     private String algorithm;
-    private int algorithmBits = 128;
+    private int algorithmBits;
 
     public KeyDistributionCenter(){
         dbConnector = new KeyDBConnector();
         encrypter = new EncrypterAES();
         algorithm = "AES";
+        algorithmBits = 128;
 
         // Initializes object with a scheduler and immediately sets it to refresh keys every hour.
         scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -50,15 +54,27 @@ public class KeyDistributionCenter {
         }
     }
 
-    public Key createKey(String user){
+    /**
+     * This function allows one to request a key for one user, encrypted with the key for another user. 
+     * @param user userID of the user that the key is for
+     * @param userForEncryption userID of the user whose key should be used to encrypt the message
+     * @return the encrypted message
+     */
+    public EncryptedMessage createEncryptedKey(String user, String userForEncryption){
+
         try {
 
-            encrypter.encrypt(null, generateKey());
+            encrypter.encrypt("null", generateKey());
         }
         catch (Exception e){
             e.printStackTrace();
         }
         
+        return null;
+    }
+
+    // This function 
+    public SecretKey createPersonalKey(String user){
         return null;
     }
 
@@ -81,5 +97,7 @@ public class KeyDistributionCenter {
     private void updateKeys(){
 
     }
+
+    
     
 }

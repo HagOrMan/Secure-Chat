@@ -2,12 +2,15 @@ package Backend.KDC;
 
 import java.time.ZonedDateTime;
 
+import javax.crypto.SecretKey;
+
 public class Key {
 
-    private String user, key;
+    private String user;
+    private SecretKey key;
     private ZonedDateTime createDate;
 
-    public Key(String user, String key, ZonedDateTime createDate){
+    public Key(String user, SecretKey key, ZonedDateTime createDate){
         this.user = user; this.key = key; this.createDate = createDate;
     }
 
@@ -15,7 +18,7 @@ public class Key {
         return user;
     }
 
-    public String getKey(){
+    public SecretKey getKey(){
         return key;
     }
 

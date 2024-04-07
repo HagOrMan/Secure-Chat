@@ -9,7 +9,7 @@ The links used to help with this:
 /*
 Note: Typically, the initialization vector (iv) is prepended or appended to the cipher text, 
 however using OOP allows use to encapsulated that information in an object instead.
-This makes it easier to extract the information as well instead of choosing a delimeter or something.
+This makes it easier to extract the information as well instead of choosing a delimeter or something to separate the iv from the text.
  */ 
 
 // Imports for cryptography
@@ -24,30 +24,46 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;  
 import javax.crypto.SecretKey;  
 import javax.crypto.spec.IvParameterSpec; 
+import javax.crypto.spec.SecretKeySpec;
 
 public class EncrypterAES implements Encrypter {
 
     // Always use AES cipher (if wondering why, look at class name)
     private String algorithm = "AES/CBC/PKCS5Padding";
 
-    public EncryptedMessage encrypt(String input, SecretKey key) 
+    // Base encryption method which encrypts bytes based on a secret key.
+    private EncryptedMessage encrypt(byte[] bytesToEncrypt, SecretKey encryptionKey)
     throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
     
         // Create new iv every time.
-        byte[] ivByte = generateIV(); // this is needed to use the byte[] object in the EncryptedMessage class.
+        byte[] ivByte = generateIV(); // this is needed to use as the byte[] parameter in the EncryptedMessage constructor.
         IvParameterSpec iv = new IvParameterSpec(ivByte);
 
         // Encryption code from link.
         Cipher cipher = Cipher.getInstance(algorithm);
-        cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-        byte[] cipherText = cipher.doFinal(input.getBytes());
-        String enryptedString =  Base64.getEncoder().encodeToString(cipherText);
+        cipher.init(Cipher.ENCRYPT_MODE, encryptionKey, iv);
+        byte[] cipherText = cipher.doFinal(bytesToEncrypt);
+        String enryptedString = Base64.getEncoder().encodeToString(cipherText);
 
         // Returns an encrypted message encapsulated with the string and iv.
         return new EncryptedMessage(enryptedString, ivByte);
+    
     }
 
-    public String decrypt(EncryptedMessage encryptedMessage, SecretKey key) 
+    // Encrypts a String based on a secret key.
+    public EncryptedMessage encrypt(String input, SecretKey encryptionKey) 
+    throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        return encrypt(input.getBytes(), encryptionKey);
+    }
+
+    // Encrypts a secret key based on another secret key.
+    public EncryptedMessage encrypt(SecretKey keyToEncrypt, SecretKey encryptionKey) 
+    throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {   
+        return encrypt(keyToEncrypt.getEncoded(), encryptionKey);
+    }
+
+    // Base decryption algorithm which returns a btye array of the encrypted message by decrypting it using the secret key.
+    private byte[] decrypt(EncryptedMessage encryptedMessage, SecretKey decryptionKey)
     throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
     
         // Extracts information from class to decrypt message.
@@ -56,10 +72,26 @@ public class EncrypterAES implements Encrypter {
 
         // Uses decryption code from link.
         Cipher cipher = Cipher.getInstance(algorithm);
-        cipher.init(Cipher.DECRYPT_MODE, key, iv);
-        byte[] plainText = cipher.doFinal(Base64.getDecoder()
-            .decode(cipherText));
-        return new String(plainText);
+        cipher.init(Cipher.DECRYPT_MODE, decryptionKey, iv);
+        byte[] plainText = cipher.doFinal(Base64.getDecoder().decode(cipherText));
+        
+        return plainText;
+    }
+
+    // Takes an encrypted message which should contain some string and decrypts it.
+    public String decryptString(EncryptedMessage encryptedMessage, SecretKey decryptionKey) 
+    throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        
+        // Takes decrypted byte array and sends back as a string.
+        return new String(decrypt(encryptedMessage, decryptionKey));
+    }
+
+    // Takes an encrypted message which should contain the bytes for a SecretKey and decrypts it.
+    public SecretKey decryptKey(EncryptedMessage encryptedMessage, SecretKey decryptionKey) 
+    throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        
+        // Use decrypt function and convert byte array back to SecretKey.
+        return new SecretKeySpec(decrypt(encryptedMessage, decryptionKey), "AES");
     }
 
     public byte[] generateIV() {
