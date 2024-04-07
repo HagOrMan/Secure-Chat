@@ -21,12 +21,12 @@ public class DBConnector {
     }
 
     public List<String> query(String queryString) {
-        // query
+        // query the database
         return new ArrayList<>();
     }
 
     public void commit() {
-        // Implementation code
+        // commit the transaction
     }
 }
 

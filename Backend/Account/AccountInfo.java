@@ -6,6 +6,7 @@ public class AccountInfo implements AccountPersonalViews{
     @Override
     public void view() {
         // Implementation of view functionality
+        
     }
 
     @Override

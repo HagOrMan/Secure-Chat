@@ -8,7 +8,7 @@ public class User {
     private String phoneNumber;
     private boolean loggedIn;
     private String personalKey;
-    //Status status;
+    //Status status; why don't we need this?
 
     // User methods, getters, setters
     public void setName(String name) {

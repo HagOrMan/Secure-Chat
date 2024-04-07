@@ -1,5 +1,5 @@
 package Backend.Account;
 
 public interface BaseAccountAuthenticator {
-    void authenticate();
+    boolean authenticate( String username, String password);
 }

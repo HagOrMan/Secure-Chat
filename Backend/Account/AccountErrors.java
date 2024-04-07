@@ -1,5 +1,5 @@
 package Backend.Account;
 
 public interface AccountErrors {
-    void display();
+    void display(int errorCode);
 }
