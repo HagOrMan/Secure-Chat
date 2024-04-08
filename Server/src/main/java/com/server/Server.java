@@ -60,7 +60,7 @@ public class Server {
         }
 
         @PostMapping("/new-personal-key")
-        public ResponseEntity<EncodedKeyDTO> getPersonalKey(@RequestHeader String userID) {
+        public ResponseEntity<EncodedKeyDTO> getPersonalKey(@RequestBody String userID) {
             System.out.println("Connection received by " + userID);
             if (users.contains(userID)){
                 SecretKey key = kdc.createPersonalKey(userID);
@@ -96,9 +96,28 @@ public class Server {
             return "Can send get request to server successfully";
         }
 
+        @PostMapping("/testPost")
+        public String testPostPing() {
+            return "Can send post request to server successfully";
+        }
+
+        @PostMapping("/test-1-var-post")
+        public String testPostPing(@RequestBody String user) {
+            return "Can send post request to server successfully, received from " + user;
+        }
+
         @PostMapping("/test-dto")
         public String testDTO(@RequestBody UserDTO userDTO) {
             return userDTO.getUser() + ", " + userDTO.getPassword();
+        }
+
+        @PostMapping("/view-users")
+        public String viewUsers() {
+            StringBuilder allUsers = new StringBuilder();
+            for (String s : users){
+                allUsers.append(s).append("\n");
+            }
+            return allUsers.toString();
         }
     }
 
