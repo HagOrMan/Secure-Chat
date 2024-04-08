@@ -7,10 +7,7 @@ import com.server.KDC.KeyDistributionCenter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.SecretKey;
 import java.util.ArrayList;
@@ -45,7 +42,7 @@ public class Server {
         public String createAccount(@RequestBody NewUserDTO newUserDTO) {
             // call account creation class to make new account based on dto
             users.add(newUserDTO.getUser());
-            return "";
+            return "Account for " + newUserDTO.getUser() + " created";
         }
 
         @PostMapping("/signin")
@@ -63,7 +60,8 @@ public class Server {
         }
 
         @PostMapping("/new-personal-key")
-        public ResponseEntity<EncodedKeyDTO> getPersonalKey(@RequestBody String userID) {
+        public ResponseEntity<EncodedKeyDTO> getPersonalKey(@RequestHeader String userID) {
+            System.out.println("Connection received by " + userID);
             if (users.contains(userID)){
                 SecretKey key = kdc.createPersonalKey(userID);
                 EncodedKeyDTO res = new EncodedKeyDTO(KeyConverter.encodeKey(key), key.getAlgorithm());
