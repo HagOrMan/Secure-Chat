@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatList extends AppCompatActivity {
+public class ChatList extends AppCompatActivity implements RecyclerChatListInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +27,14 @@ public class ChatList extends AppCompatActivity {
         setContentView(R.layout.activity_chat_list);
 
         ImageButton settingsButton = findViewById(R.id.settingsButton);
-        Button tempButton = findViewById(R.id.tempButton);
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent settingsIntent = new Intent(ChatList.this, SettingsActivity.class);
+                String user = getIntent().getStringExtra("username");
+                settingsIntent.putExtra("SENDER", user);
                 startActivity(settingsIntent);
-            }
-        });
-
-        tempButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent messagesIntent = new Intent(ChatList.this, MessagesActivity.class);
-                startActivity(messagesIntent);
             }
         });
 
@@ -75,12 +68,21 @@ public class ChatList extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new AdapterM(getApplicationContext(), items));
+        recyclerView.setAdapter(new AdapterM(getApplicationContext(), items, this));
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    public void onItemClick(int position, String sender, String receiver) {
+        String user = getIntent().getStringExtra("username");
+        Intent messagesIntent = new Intent(ChatList.this, MessagesActivity.class);
+        messagesIntent.putExtra("SENDER", user);
+        messagesIntent.putExtra("RECEIVER", receiver);
+        startActivity(messagesIntent);
     }
 }

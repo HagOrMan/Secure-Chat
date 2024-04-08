@@ -27,6 +27,8 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent chatsIntent = new Intent(SettingsActivity.this, ChatList.class);
+                String sender = getIntent().getStringExtra("SENDER");
+                chatsIntent.putExtra("username", sender);
                 startActivity(chatsIntent);
             }
         });
