@@ -1,8 +1,10 @@
 package Backend.Account;
 
+import java.io.IOException;
+
 // Backend.AccountController.java
 public class AccountController {
-    public void login() {
+    public void login() throws IOException {
         // Logic to handle login
         LogInOut logInOut = new AccountLogInOut();
         logInOut.login();
@@ -14,7 +16,7 @@ public class AccountController {
         logInOut.logout();
     }
 
-    public void signup() {
+    public void signup() throws IOException {
         // Logic to handle signup
         LogInOut logInOut = new AccountLogInOut();
         logInOut.signup();

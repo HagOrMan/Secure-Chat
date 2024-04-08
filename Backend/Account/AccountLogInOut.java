@@ -1,4 +1,5 @@
 package Backend.Account;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class AccountLogInOut extends LogInOut {
@@ -11,7 +12,7 @@ public class AccountLogInOut extends LogInOut {
     }
 
     @Override
-    void login() {
+    void login() throws IOException {
         // Implementation of login functionality
         //request information
         //scanner 
@@ -38,7 +39,7 @@ public class AccountLogInOut extends LogInOut {
     }
 
     @Override
-    void signup() {
+    void signup() throws IOException {
         // Implementation of signup functionality
         //scanner
         //add user to database

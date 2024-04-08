@@ -1,9 +1,10 @@
 package Backend.Account;
 
+import java.io.IOException;
 
 public class testAuth {
     // Test the authenticate method
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //test the authenticate method
         AccountAuthenticator auth = new AccountAuthenticator();
         System.out.println("Testing authenticate with correct credentials:user1, password1");
