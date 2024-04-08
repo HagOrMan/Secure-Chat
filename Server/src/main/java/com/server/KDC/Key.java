@@ -18,7 +18,7 @@ public class Key {
     @Override
     public String toString() {
         String keyString = Base64.getEncoder().encodeToString(key.getEncoded());
-        return user + "," + keyString + "," + createDate.toString();
+        return user + "," + keyString + "," + key.getAlgorithm() + "," + createDate.toString();
     }
 
     public String getUser(){
