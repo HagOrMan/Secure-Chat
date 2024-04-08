@@ -30,6 +30,7 @@ public class ChatList extends AppCompatActivity {
         Button tempButton = findViewById(R.id.tempButton);
         Button scheduleMeetingButton = findViewById(R.id.ScheduleMeetingButton);
 
+
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

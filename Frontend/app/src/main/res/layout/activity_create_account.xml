@@ -5,14 +5,26 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage">
+    tools:context=".CreateAccount">
+
+    <EditText
+        android:id="@+id/passwordFieldCA"
+        android:layout_width="211dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="364dp"
+        android:ems="10"
+        android:hint="Re-enter Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/LIButton"
+        android:id="@+id/CAButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="304dp"
-        android:text="Log In"
+        android:text="Create Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -29,35 +41,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/participantsTextInput"
-        android:id="@+id/usernameFieldLI"
-        android:layout_width="215dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="140dp"
+        android:id="@+id/usernameFieldCA"
+        android:layout_width="209dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="128dp"
+        android:height="48dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textEmailAddress"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
-        android:id="@+id/passwordFieldLI"
-        android:layout_width="212dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/passwordREFieldCA"
+        android:layout_width="211dp"
+        android:layout_height="52dp"
+        android:height="48dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/passwordFieldCA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/participantsTextInput" />
-        app:layout_constraintTop_toBottomOf="@+id/usernameFieldLI" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/returnMainLI"
+        android:id="@+id/returnMainCA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
