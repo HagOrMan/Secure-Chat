@@ -49,7 +49,9 @@
         android:text="Schedule Meeting"
         app:strokeColor="#FFFFFF"
         app:strokeWidth="3px"
-        tools:layout_editor_absoluteX="2737dp"
-        tools:layout_editor_absoluteY="4dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toolbar2"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
