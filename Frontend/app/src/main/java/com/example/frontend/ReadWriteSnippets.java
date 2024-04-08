@@ -1,11 +1,11 @@
 package com.example.frontend;
 
 import android.util.Log;
-import android.widget.Toast;
 import com.google.firebase.database.*;
 import models.Message;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -28,13 +28,17 @@ public class ReadWriteSnippets {
     }
 
     public void writeNewMessage(String senderID, String targetID, String message_txt) {
-        Message msg = new Message(LocalDateTime.now(), message_txt);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        Message msg = new Message(formattedDateTime, message_txt);
 
         mDatabase.child(senderID).child(targetID).push().setValue(msg);
     }
 
     public void writeNewMessageWithListeners(String senderID, String targetID, String message_txt) {
-        Message msg = new Message(LocalDateTime.now(), message_txt);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDateTime = LocalDateTime.now().format(formatter);
+        Message msg = new Message(formattedDateTime, message_txt);
 
         mDatabase.child(senderID).child(targetID).push().setValue(msg)
                 .addOnCompleteListener(task -> {
@@ -84,14 +88,8 @@ public class ReadWriteSnippets {
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(TAG, "onChildAdded2:" + " | " + dataSnapshot.getValue());
-                Log.d(TAG, "onChildAdded1:" + " | " + dataSnapshot.getValue(Message.class));
-//                Log.d(TAG, "onChildAdded1:" + dataSnapshot.getChildren());
-//                Log.d(TAG, "onChildAdded1.5:" + dataSnapshot.child(dataSnapshot.getKey()).getChildren());
-//                for (DataSnapshot datasnapshot: dataSnapshot.getChildren()) {
-//                    Log.d(TAG, "onChildAdded2:" + datasnapshot + " | " + datasnapshot.getKey() + " | " + datasnapshot.getChildren());
-//                }
-//                Message message = dataSnapshot.getChildren();
+                Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+                Message message = dataSnapshot.getValue(Message.class);
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
