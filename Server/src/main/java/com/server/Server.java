@@ -19,13 +19,11 @@ import java.util.List;
 public class Server {
 
     private static KeyDistributionCenter kdc;
-    private static KeyConverter keyAdapter;
 
     private static List<String> users;
 
     public Server(){
         kdc = new KeyDistributionCenter();
-        keyAdapter = new KeyConverter();
         users = new ArrayList<>();
     }
 
@@ -67,8 +65,20 @@ public class Server {
         public ResponseEntity<EncodedKeyDTO> getPersonalKey(@RequestBody String userID) {
             if (users.contains(userID)){
                 SecretKey key = kdc.createPersonalKey(userID);
-                EncodedKeyDTO res = new EncodedKeyDTO(keyAdapter.encodeKey(key), key.getAlgorithm());
+                EncodedKeyDTO res = new EncodedKeyDTO(KeyConverter.encodeKey(key), key.getAlgorithm());
                 return ResponseEntity.ok(res);
+            }
+            else {
+                return ResponseEntity.badRequest().build();
+            }
+        }
+
+        @PostMapping("/new-chat")
+        public ResponseEntity<EncodedKeyDTO> getPersonalKey(@RequestBody NewChatDTO chatUsers) {
+            if (users.contains(chatUsers.getSender())){
+
+//                EncodedKeyDTO res = new EncodedKeyDTO(KeyConverter.encodeKey(key), key.getAlgorithm());
+                return ResponseEntity.ok(null);
             }
             else {
                 return ResponseEntity.badRequest().build();
