@@ -22,50 +22,20 @@ import javax.crypto.SecretKey;
 
 public class KeyDBConnector {
     
-    private String storage = ".\\KeyStorage.txt";
+    private String storage = "";
     private String algorithm;
     private List<Key> keys;
 
     public KeyDBConnector(String algorithm){
-//        keys = readKeysFromFile();
+        keys = readKeysFromDB();
         this.algorithm = algorithm;
-        keys = new ArrayList<Key>();
     }
 
-    // Write keys to a text file, replacing what is already there with the current Key list.
-    public void saveAllKeys(){
-        // Uses PrintWriter to use println and keep each Key information on separate lines for easy reading.
-        try (PrintWriter writer = new PrintWriter(storage)) {
-            for (Key key : keys) {
-                writer.println(key.toString()); 
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    // Read keys from a text file
-    private List<Key> readKeysFromFile()  {
+    // Read keys from db and save locally
+    private List<Key> readKeysFromDB()  {
         List<Key> keys = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(storage))) {
-            String line = reader.readLine();
-            while ( line != null) {
-                String[] parts = line.split(",");
-                String user = parts[0];
-                byte[] keyBytes = Base64.getDecoder().decode(parts[1]);
-                LocalDateTime createDate = LocalDateTime.parse(parts[2]);
-
-                SecretKey secretKey = new SecretKeySpec(keyBytes, algorithm);
-
-                keys.add(new Key(user, secretKey, createDate));
-                line = reader.readLine();
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        // TODO: @ahmed pls help
 
         return keys;
     }
@@ -74,12 +44,8 @@ public class KeyDBConnector {
     public void addKey(Key key){
         keys.add(key);
 
-//        // Create print writer in append mode.
-//        try (PrintWriter writer = new PrintWriter(new FileWriter(storage, true))) {
-//            writer.println(key.toString());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        // TODO: @ahmed pls help
+        // This is where we add it to the db
     }
 
     /**
@@ -94,8 +60,7 @@ public class KeyDBConnector {
             return false;
         }
         
-        // Currently not the best, but saves all keys to remove the deleted on from the file.
-        saveAllKeys();
+        // this will be the part where you remove it from the db
         return true;
     }
 
