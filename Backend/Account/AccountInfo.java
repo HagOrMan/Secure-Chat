@@ -1,7 +1,8 @@
 package Backend.Account;
 
 public class AccountInfo implements AccountPersonalViews{
-    private User user;
+    // Edited out because `User` now in `/models/`
+    // private User user;
 
     @Override
     public void view() {
@@ -14,12 +15,12 @@ public class AccountInfo implements AccountPersonalViews{
     }
 
     // Getters and Setters
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }
 

@@ -1,4 +1,4 @@
-package Backend.Account;
+package models;
 
 public class User {
     private String name;
@@ -10,48 +10,45 @@ public class User {
     private String personalKey;
     //Status status;
 
-    // User methods, getters, setters
-    public void setName(String name) {
+    public User() {}
+
+    public User(String name, String userID, String gender, String email,
+                String phoneNumber, boolean loggedIn, String personalKey) {
         this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setUserID(String userID) {
         this.userID = userID;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.loggedIn = loggedIn;
+        this.personalKey = personalKey;
     }
+
+    // User methods, getters, setters
+    public String getName() { return name; }
     public String getUserID() {
         return userID;
-    }
-    public void setGender(String gender) {
-        this.gender=gender;
     }
     public String getGender() {
         return gender;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
     public String getEmail() {
         return email;
-    }
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
     public boolean getLoggedIn() {
         return loggedIn;
-    }
-    public void setPersonalKey(String personalKey) {
-        this.personalKey = personalKey;
     }
     public String getPersonalKey() {
         return personalKey;
     }
+
+    // Please implement this later!!!
+    // TODO: Needs implementation!
+//    @Override
+//    public String toString() {
+//        return "(" + senderID + " -> " + targetID + " @ " + dateTime + ": " + message_txt + ")";
+//    }
+
 }
