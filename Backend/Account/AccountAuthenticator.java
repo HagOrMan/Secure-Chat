@@ -41,9 +41,6 @@ public class AccountAuthenticator implements BaseAccountAuthenticator{
                 authenticated = true;
             }
         }
-        //authenticate the user
-        //a list private 'arraylist' contain user name and password, make users an object 
-        //if the user name and password are correct, return true
         return authenticated;
     }
    
@@ -51,9 +48,9 @@ public class AccountAuthenticator implements BaseAccountAuthenticator{
 /*
  * ask michael about the log in and log out page
  * save variable (not scanner), call a new class ( send post request to server with the information, user name and password)
- * make a new page for the log in fail or pop on the page
+ * make a new page for the log in fail or pop up window
  * need URL later
- * new poster request will be front end
+ * new post request will be front end
  * if true, go to next page
  * http://100.82.74.6/8080/
  */
