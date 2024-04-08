@@ -22,13 +22,14 @@ import javax.crypto.SecretKey;
 
 public class KeyDBConnector {
     
-    private String storage = "./KeyStorage.csv";
+    private String storage = ".\\KeyStorage.txt";
     private String algorithm;
     private List<Key> keys;
 
     public KeyDBConnector(String algorithm){
-        keys = readKeysFromFile();
+//        keys = readKeysFromFile();
         this.algorithm = algorithm;
+        keys = new ArrayList<Key>();
     }
 
     // Write keys to a text file, replacing what is already there with the current Key list.
@@ -73,12 +74,12 @@ public class KeyDBConnector {
     public void addKey(Key key){
         keys.add(key);
 
-        // Create print writer in append mode.
-        try (PrintWriter writer = new PrintWriter(new FileWriter(storage, true))) {
-            writer.println(key.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        // Create print writer in append mode.
+//        try (PrintWriter writer = new PrintWriter(new FileWriter(storage, true))) {
+//            writer.println(key.toString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
