@@ -29,6 +29,9 @@
             android:exported="false"
             android:theme="@style/Theme.Frontend" />
         <activity
+            android:name=".ScheduleMeeting"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

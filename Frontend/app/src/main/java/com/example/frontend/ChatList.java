@@ -27,6 +27,15 @@ public class ChatList extends AppCompatActivity implements RecyclerChatListInter
         setContentView(R.layout.activity_chat_list);
 
         ImageButton settingsButton = findViewById(R.id.settingsButton);
+        Button scheduleMeetingButton = findViewById(R.id.ScheduleMeetingButton);
+
+        scheduleMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scheduleMeetingIntent = new Intent(ChatList.this, ScheduleMeeting.class);
+                startActivity(scheduleMeetingIntent);
+            }
+        });
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
