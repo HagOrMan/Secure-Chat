@@ -12,13 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class AdapterM extends RecyclerView.Adapter<ViewholderClass> {
+    private final RecyclerChatListInterface recyclerChatListInterface;
 
     Context context;
     List<chatItem> items;
 
-    public AdapterM(Context context, List<chatItem> items) {
+    public AdapterM(Context context, List<chatItem> items, RecyclerChatListInterface recyclerChatListInterface) {
         this.context = context;
         this.items = items;
+        this.recyclerChatListInterface = recyclerChatListInterface;
     }
 
     @NonNull
@@ -32,6 +34,15 @@ public class AdapterM extends RecyclerView.Adapter<ViewholderClass> {
         holder.imageView.setImageResource(items.get(position).getPfp());
         holder.usernameView.setText(items.get(position).getUsername());
         holder.lastOnlineView.setText(items.get(position).getLastOnline());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recyclerChatListInterface != null) {
+                    recyclerChatListInterface.onItemClick(position, "Michael3", items.get(position).getUsername());
+                }
+            }
+        });
     }
 
     @Override

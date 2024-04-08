@@ -10,13 +10,13 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="363dp"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
         android:layout_marginStart="10dp"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -29,10 +29,9 @@
 
     <TextView
         android:id="@+id/lastonline"
-        android:layout_width="363dp"
+        android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="0dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/pfp"
         app:layout_constraintTop_toBottomOf="@+id/username"
@@ -42,13 +41,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/pfp"
+        app:layout_constraintTop_toBottomOf="@id/lastonline"
         tools:layout_editor_absoluteX="0dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toTopOf="@id/pfp"
+        app:layout_constraintTop_toTopOf="@id/username"
         tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
