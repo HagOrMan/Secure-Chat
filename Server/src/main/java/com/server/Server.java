@@ -15,7 +15,7 @@ public class Server {
     private static KeyDistributionCenter kdc;
 
     public Server(){
-        kdc = new KeyDistributionCenter();
+//        kdc = new KeyDistributionCenter();
     }
 
 
@@ -30,6 +30,11 @@ public class Server {
         public String mainPing(@RequestBody UserIDDTO userDTO) {
             kdc.createPersonalKey("user1");
             return "Main Ping";
+        }
+
+        @GetMapping("/test")
+        public String testPing() {
+            return "Can send get request to server successfully";
         }
     }
 
