@@ -27,6 +27,7 @@ public class AccountLogInOut extends LogInOut {
             AccountError accountErrorMessages = new AccountError();
             accountErrorMessages.display(1);//ERROR CODE NEEDED HERE
             //not sure if this should be a account error or an authentication error
+            //make a small page on front end to display the error
         }
     }
 
