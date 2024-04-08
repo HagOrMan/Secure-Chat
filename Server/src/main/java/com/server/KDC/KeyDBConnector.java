@@ -107,5 +107,9 @@ public class KeyDBConnector {
         }
         return null;
     }
+
+    public int numKeys(){
+        return keys.size();
+    }
     
 }

@@ -109,6 +109,9 @@ public class KeyDistributionCenter {
 
     }
 
+    public int numKeys(){
+        return dbConnector.numKeys();
+    }
     
     
 }
