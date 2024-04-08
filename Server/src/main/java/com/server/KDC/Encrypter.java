@@ -23,4 +23,7 @@ public interface Encrypter {
     public SecretKey decryptKey(EncryptedMessage encryptedMessage, SecretKey decryptionKey)
     throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
 
+    public EncryptedMessage doubleDecryptFirst(DoubleEncryptedMessage encryptedMessage, SecretKey decryptionKey)
+            throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException;
+
 }

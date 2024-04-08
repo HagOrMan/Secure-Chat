@@ -94,6 +94,14 @@ public class EncrypterAES implements Encrypter {
         return new SecretKeySpec(decrypt(encryptedMessage, decryptionKey), "AES");
     }
 
+    public EncryptedMessage doubleDecryptFirst(DoubleEncryptedMessage encryptedMessage, SecretKey decryptionKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+
+        // Decrypts the string once using the decryption key.
+        String halfDecryptedMessage = decryptString(new EncryptedMessage(encryptedMessage.getCipherText(), encryptedMessage.getIv1()), decryptionKey);
+
+        return new EncryptedMessage(halfDecryptedMessage, encryptedMessage.getIv2());
+    }
+
     public byte[] generateIV() {
         
         // Use secure random to create the IV (it's good for almost perfectly unique IVs? https://stackoverflow.com/questions/1785555/how-should-i-generate-an-initialization-vector)

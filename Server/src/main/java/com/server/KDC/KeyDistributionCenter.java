@@ -1,5 +1,9 @@
 package com.server.KDC;
 
+import com.server.dto.ChatRequestResponseDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -22,11 +26,14 @@ public class KeyDistributionCenter {
     private String algorithm;
     private int algorithmBits;
 
+    private List<Key> sessionKeys;
+
     public KeyDistributionCenter(){
+        algorithm = "AES";
         dbConnector = new KeyDBConnector(algorithm);
         encrypter = new EncrypterAES();
-        algorithm = "AES";
         algorithmBits = 128;
+        sessionKeys = new ArrayList<>();
 
         // Initializes object with a scheduler and immediately sets it to refresh keys every hour.
         scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -55,6 +62,37 @@ public class KeyDistributionCenter {
         }
     }
 
+    public ChatRequestResponseDTO startNewChat(String sender, String receiver, String nonce){
+
+        try {
+            EncryptedMessage encryptedNonce = encrypter.encrypt(nonce, dbConnector.getKeyByUser(sender).getKey());
+            EncryptedMessage senderSessionKey = createEncryptedKey(sender, sender);
+            EncryptedMessage encryptedReceiver = encrypter.encrypt(receiver, dbConnector.getKeyByUser(sender).getKey());
+
+            // Double encrypts messages for sender to send to receiver.
+            EncryptedMessage receiverSessionKeyBase = encrypter.encrypt(
+                    senderSessionKey.getCipherText(), dbConnector.getKeyByUser(receiver).getKey());
+            DoubleEncryptedMessage receiverSessionKey = new DoubleEncryptedMessage(
+                    receiverSessionKeyBase.getCipherText(), receiverSessionKeyBase.getIv(), senderSessionKey.getIv()
+            );
+
+            EncryptedMessage encryptedSender = encrypter.encrypt(sender, dbConnector.getKeyByUser(sender).getKey());
+            EncryptedMessage encryptedSender2 = encrypter.encrypt(
+                    encryptedSender.getCipherText(), dbConnector.getKeyByUser(receiver).getKey()
+            );
+            DoubleEncryptedMessage senderEncryptedForReceiver = new DoubleEncryptedMessage(
+                    encryptedSender2.getCipherText(), encryptedSender2.getIv(), encryptedSender.getIv()
+            );
+
+            return new ChatRequestResponseDTO(encryptedNonce, senderSessionKey, encryptedReceiver,
+                    receiverSessionKey, senderEncryptedForReceiver);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("Error occured when encrypting message for chat between " + sender + " and " + receiver);
+        }
+    }
+
     /**
      * This function allows one to request a key for one user, encrypted with the key for another user. 
      * @param user userID of the user that the key is for
@@ -67,7 +105,9 @@ public class KeyDistributionCenter {
             // Get key from db, create new key, save to db, and encrypt the new key to send back.
             SecretKey encryptionKey = dbConnector.getKeyByUser(userForEncryption).getKey();
             SecretKey newKey = generateKey();
-            dbConnector.addKey(new Key(user, newKey, LocalDateTime.now()));
+            Key newSeshKey = new Key(user, newKey, LocalDateTime.now());
+            dbConnector.addKey(newSeshKey);
+            sessionKeys.add(newSeshKey);
             return encrypter.encrypt(newKey, encryptionKey); 
         }
         catch (Exception e){

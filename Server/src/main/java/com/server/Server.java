@@ -1,5 +1,6 @@
 package com.server;
 
+import com.server.KDC.EncryptedMessage;
 import com.server.KDC.KeyConverter;
 import com.server.dto.*;
 import com.server.KDC.KeyDistributionCenter;
@@ -74,8 +75,10 @@ public class Server {
         }
 
         @PostMapping("/new-chat")
-        public ResponseEntity<EncodedKeyDTO> getPersonalKey(@RequestBody NewChatDTO chatUsers) {
+        public ResponseEntity<EncryptedMessage> startChat(@RequestBody NewChatDTO chatUsers) {
             if (users.contains(chatUsers.getSender())){
+
+                EncryptedMessage newMessage = kdc.createEncryptedKey(chatUsers.getReceiver(), chatUsers.getSender());
 
 //                EncodedKeyDTO res = new EncodedKeyDTO(KeyConverter.encodeKey(key), key.getAlgorithm());
                 return ResponseEntity.ok(null);
