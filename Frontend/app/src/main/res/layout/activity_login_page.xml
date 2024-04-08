@@ -29,7 +29,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/participantsTextInput"
         android:id="@+id/usernameFieldLI"
         android:layout_width="215dp"
         android:layout_height="56dp"
