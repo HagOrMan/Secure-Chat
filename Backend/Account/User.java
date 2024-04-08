@@ -8,7 +8,9 @@ public class User {
     private String phoneNumber;
     private boolean loggedIn;
     private String personalKey;
-    //Status status; why don't we need this?
+    //may be change this part
+    // this for sign up
+    //all user name store in backend :)
 
     // User methods, getters, setters
     public void setName(String name) {
