@@ -1,4 +1,4 @@
-package Backend.KDC;
+package com.server.KDC;
 
 public class EncryptedMessage {
     private String cipherText;

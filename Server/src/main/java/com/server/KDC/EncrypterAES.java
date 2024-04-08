@@ -1,4 +1,4 @@
-package Backend.KDC;
+package com.server.KDC;
 
 /*
 The links used to help with this: 

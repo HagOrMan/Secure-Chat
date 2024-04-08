@@ -1,4 +1,4 @@
-package Backend.KDC;
+package com.server.KDC;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

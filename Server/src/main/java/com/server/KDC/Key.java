@@ -1,4 +1,4 @@
-package Backend.KDC;
+package com.server.KDC;
 
 import java.time.LocalDateTime;
 import java.util.Base64;

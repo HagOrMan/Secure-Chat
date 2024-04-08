@@ -1,4 +1,4 @@
-package Backend.KDC;
+package com.server.KDC;
 
 // Potential middleman class to be used to update users
 // I was thinking of maybe initializing with the KDC and UserController that it'd talk to since idk how to make the strings work
