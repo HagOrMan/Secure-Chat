@@ -15,8 +15,13 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ChatList extends AppCompatActivity implements RecyclerChatListInterface {
 
@@ -27,6 +32,20 @@ public class ChatList extends AppCompatActivity implements RecyclerChatListInter
         setContentView(R.layout.activity_chat_list);
 
         ImageButton settingsButton = findViewById(R.id.settingsButton);
+        Button scheduleMeetingButton = findViewById(R.id.ScheduleMeetingButton);
+        String user = getIntent().getStringExtra("username");
+
+        ReadWriteSnippets rwsChats = new ReadWriteSnippets();
+        scheduleMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent scheduleMeetingIntent = new Intent(ChatList.this, ScheduleMeeting.class);
+                String sender = getIntent().getStringExtra("username");
+                scheduleMeetingIntent.putExtra("username", sender);
+                startActivity(scheduleMeetingIntent);
+
+            }
+        });
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,31 +58,10 @@ public class ChatList extends AppCompatActivity implements RecyclerChatListInter
         });
 
         List<chatItem> items = new ArrayList<chatItem>();
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael1", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael2", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael3", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael4", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael5", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael6", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael7", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael8", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael9", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael10", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael11", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael12", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael13", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael14", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael15", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael16", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael17", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael18", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael19", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael20", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael21", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael22", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael23", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael24", "Currently Online"));
-        items.add(new chatItem(R.drawable.defaultpfp, "Michael25", "Currently Online"));
+        items.add(new chatItem(R.drawable.defaultpfp, "Michael1", "Employee"));
+        items.add(new chatItem(R.drawable.defaultpfp, "Michael2", "Employee"));
+        items.add(new chatItem(R.drawable.defaultpfp, "Michael3", "Employee"));
+        items.add(new chatItem(R.drawable.defaultpfp, "Michael4", "Employee"));
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);

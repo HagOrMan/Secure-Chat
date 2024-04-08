@@ -6,25 +6,29 @@ import com.example.frontend.Message;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class ReadWriteSnippets {
 
-    public DatabaseReference mDatabase;
+    public DatabaseReference msgDatabase;
+    public DatabaseReference mtgDatabase;
     private static final String MESSAGE_DB_ROOT = "messages";
+    private static final String MEETING_DB_ROOT = "meetings";
     private static final String TAG = "firebasedb";
 
     public ReadWriteSnippets() {
-        mDatabase = FirebaseDatabase.getInstance().getReference(MESSAGE_DB_ROOT);
+        msgDatabase = FirebaseDatabase.getInstance().getReference(MESSAGE_DB_ROOT);
+        mtgDatabase = FirebaseDatabase.getInstance().getReference(MEETING_DB_ROOT);
     }
 
     public ReadWriteSnippets(String ref) {
-        mDatabase = FirebaseDatabase.getInstance().getReference(ref);
+        msgDatabase = FirebaseDatabase.getInstance().getReference(ref);
     }
 
     public ReadWriteSnippets(String ref, String inst) {
-        mDatabase = FirebaseDatabase.getInstance(inst).getReference(ref);
+        msgDatabase = FirebaseDatabase.getInstance(inst).getReference(ref);
     }
 
     public void writeNewMessage(String senderID, String targetID, String message_txt) {
@@ -32,7 +36,7 @@ public class ReadWriteSnippets {
         String formattedDateTime = LocalDateTime.now().format(formatter);
         Message msg = new Message(formattedDateTime, message_txt);
 
-        mDatabase.child(senderID).child(targetID).push().setValue(msg);
+        msgDatabase.child(senderID).child(targetID).push().setValue(msg);
     }
 
     public void writeNewMessageWithListeners(String senderID, String targetID, String message_txt) {
@@ -40,12 +44,24 @@ public class ReadWriteSnippets {
         String formattedDateTime = LocalDateTime.now().format(formatter);
         Message msg = new Message(formattedDateTime, message_txt);
 
-        mDatabase.child(senderID).child(targetID).push().setValue(msg)
+        msgDatabase.child(senderID).child(targetID).push().setValue(msg)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful())
                         Log.d(TAG, "Succeeded sending :-" + msg);
                 })
                 .addOnFailureListener(e -> Log.e(TAG, "Failed sending :-" + msg));
+    }
+
+    public void writeNewMeetingWithListeners(ArrayList<String> participants, ScheduleMeeting.MeetingInfo meetingInfo) {
+
+        for (String participant: participants){
+            mtgDatabase.child(participant).push().setValue(meetingInfo)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful())
+                            Log.d(TAG, "Succeeded sending :-" + meetingInfo);
+                    })
+                    .addOnFailureListener(e -> Log.e(TAG, "Failed sending :-" + meetingInfo));
+        }
     }
 
     public void addMessageEventListener(String senderID, String targetID) {
@@ -63,7 +79,7 @@ public class ReadWriteSnippets {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.child(senderID).child(targetID).addValueEventListener(msgListener);
+        msgDatabase.child(senderID).child(targetID).addValueEventListener(msgListener);
     }
 
     public void addMessageEventListener(DatabaseReference mMessageReference, String senderID, String targetID) {
@@ -108,7 +124,7 @@ public class ReadWriteSnippets {
                 Log.w(TAG, "postComments:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.child(senderID).child(targetID).addChildEventListener(childEventListener);
+        msgDatabase.child(senderID).child(targetID).addChildEventListener(childEventListener);
     }
 
     public void addMessageChildEventListener(DatabaseReference mMessageReference, String senderID, String targetID) {

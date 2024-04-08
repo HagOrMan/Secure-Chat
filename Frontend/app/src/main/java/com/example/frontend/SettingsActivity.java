@@ -21,7 +21,18 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         ImageButton returnToChatsS = findViewById(R.id.returnToChatsS);
+        Button viewMeetings = findViewById(R.id.viewMeetingsButton);
         Button logOut = findViewById(R.id.logOutButton);
+
+        viewMeetings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewMeetingsIntent = new Intent(SettingsActivity.this, ViewMeetingsActivity.class);
+                String sender = getIntent().getStringExtra("SENDER");
+                viewMeetingsIntent.putExtra("username", sender);
+                startActivity(viewMeetingsIntent);
+            }
+        });
 
         returnToChatsS.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -89,8 +89,8 @@ public class MessagesActivity extends AppCompatActivity implements RecyclerChatL
         ReadWriteSnippets rwsOutgoing = new ReadWriteSnippets();
         ReadWriteSnippets rwsIncoming = new ReadWriteSnippets();
 
-        rwsOutgoing.mDatabase.child(sender).child(receiver).addChildEventListener(childEventListenerOutgoing);
-        rwsIncoming.mDatabase.child(receiver).child(sender).addChildEventListener(childEventListenerIncoming);
+        rwsOutgoing.msgDatabase.child(sender).child(receiver).addChildEventListener(childEventListenerOutgoing);
+        rwsIncoming.msgDatabase.child(receiver).child(sender).addChildEventListener(childEventListenerIncoming);
 
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
